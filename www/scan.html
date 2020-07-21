@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="cordova.js"></script>
+</head>
+
+<body>
+    <button id="btnQRCode">Scan Bitch!</button>
+    <button id="btnHide">Hide Bitch!</button>
+
+    <script>
+        function displayContents(err, text) {
+            if (err) {
+                console.log(err);
+            } else {
+                // The scan completed, display the contents of the QR code:
+                window.alert(text);
+                QRScanner.hide();
+            }
+        }
+
+        document.getElementById("btnQRCode").addEventListener("click", function () {
+            // `QRScanner.cancelScan()` is called.
+            QRScanner.scan(displayContents);
+
+            // Make the webview transparent so the video preview is visible behind it.
+            QRScanner.show();
+
+            console.log("aa");
+        })
+
+        document.getElementById("btnHide").addEventListener("click", function () {
+            QRScanner.destroy(function (status) {
+                console.log(status);
+            });
+        })
+    </script>
+</body>
+
+</html>

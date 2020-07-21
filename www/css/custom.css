@@ -71,13 +71,11 @@ body {
   margin-left: 2%;
 }
 
-.select-bg
-{
-  background-color: #3E3D48;
- 
+.select-bg {
+  background-color: #3e3d48;
+
   border-color: #deb432;
   color: white;
- 
 }
 
 .scan-btn {
@@ -208,57 +206,49 @@ input[type="password"]:focus {
   margin-top: -0.4em;
 }
 
-.btn-login
-{
+.btn-login {
   background-color: #deb432;
   color: #3e3d48;
   width: 90%;
 }
 
-.btn-login:hover
-{
+.btn-login:hover {
   background-color: #e3bf4f;
   color: #3e3d48;
-
 }
 
-.reg-text
-{
+.reg-text {
   color: white;
   margin-top: 0.5em;
   margin-bottom: -1em;
 }
 
-.textWhite
-{
+.textWhite {
   color: white;
 }
 
-.reg-lable-text
-{
+.reg-lable-text {
   font-size: 1em;
 }
 
-.scan-target-container
-{
+.scan-target-container {
   display: flex;
   justify-content: center;
   align-items: center;
- display: flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
   flex-direction: column;
   padding: 3em;
-  background-color:transparent;
-
+  background-color: transparent;
 }
 
-.scan-btn{
+.scan-btn {
   margin-top: 3em;
   background-color: #e3bf4f;
   width: 100%;
-  border-radius: 3px;;
+  border-radius: 3px;
 }
 
 @media only screen and (min-width: 600px) {
@@ -270,7 +260,6 @@ input[type="password"]:focus {
   [class*="reg-lable-text"] {
     font-size: 2.3em;
     margin-left: 0.5em;
-   
   }
 
   [class*="form-control"] {
@@ -285,7 +274,6 @@ input[type="password"]:focus {
 
   [class*="reg-text"] {
     font-size: 2em;
-  
   }
 
   [class*="title-text"] {

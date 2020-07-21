@@ -71,6 +71,15 @@ body {
   margin-left: 2%;
 }
 
+.select-bg
+{
+  background-color: #3E3D48;
+ 
+  border-color: #deb432;
+  color: white;
+ 
+}
+
 .scan-btn {
   width: 90%;
   background-color: #deb432;
@@ -228,6 +237,28 @@ input[type="password"]:focus {
 .reg-lable-text
 {
   font-size: 1em;
+}
+
+.scan-target-container
+{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+  padding: 3em;
+  background-color:transparent;
+
+}
+
+.scan-btn{
+  margin-top: 0.5em;
+  background-color: #e3bf4f;
+  width: 100%;
+  border-radius: 3px;;
 }
 
 @media only screen and (min-width: 600px) {

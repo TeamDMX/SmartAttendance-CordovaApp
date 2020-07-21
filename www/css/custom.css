@@ -1,0 +1,311 @@
+body {
+  background-color: #2e3038;
+}
+
+.active-container {
+  margin-top: 5%;
+  background-color: #3e3d48;
+  border-radius: 5px;
+  box-shadow: 2px 2px 30px 2px #2f3038;
+  padding-bottom: 2%;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.flex-container > div {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.option-arrow {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 2em;
+  color: #deb432;
+  margin-top: 5px;
+}
+
+.option-arrow > p {
+  font-size: 1.5em;
+  color: #deb432;
+}
+
+.text-white {
+  color: white;
+}
+
+.v-align {
+  align-items: center;
+}
+
+.profile-icon {
+  width: 20%;
+  margin: 10px;
+}
+
+.user-text {
+  margin: 5px;
+  font-size: 1.1em;
+}
+
+.index-text {
+  margin: 2px;
+  font-size: 0.7em;
+}
+
+.title-text {
+  font-size: 1em;
+  margin-left: 2%;
+  padding-top: 4%;
+  color: #deb432;
+  margin-left: 2%;
+}
+
+.scan-btn {
+  width: 90%;
+  background-color: #deb432;
+  border-radius: 20px;
+  border-color: #deb432;
+  margin-bottom: 2%;
+}
+
+.scan-btn:hover {
+  width: 90%;
+  background-color: #e3bf4f;
+  border-radius: 20px;
+  border-color: #e3bf4f;
+  margin-bottom: 2%;
+}
+
+hr {
+  background-color: #deb432;
+}
+
+.score-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #deb432;
+  padding-bottom: 0.7em;
+}
+.margin-botp2 {
+  margin-bottom: 2%;
+}
+
+.score-text {
+  font-size: 3.5em;
+  z-index: 2;
+  position: absolute;
+}
+.more-btn {
+  background-color: #deb432;
+
+  width: 7em;
+  font-size: 0.8em;
+  border-radius: 20px;
+  margin-right: 0.5em;
+  margin-bottom: -1em;
+}
+
+.more-btn:hover {
+  background-color: #e3bf4f;
+
+  width: 7em;
+  font-size: 0.8em;
+  border-radius: 20px;
+  margin-right: 0.5em;
+  margin-bottom: -1em;
+}
+
+.history-card {
+  display: flex;
+  background-color: #3e3d48;
+  box-shadow: 2px 2px 30px 2px #2f3038;
+
+  margin-left: 1em;
+  margin-right: 1em;
+  border-radius: 20px;
+  justify-content: center;
+  margin-bottom: 0.5em;
+}
+.history-card-course {
+  font-size: 0.8em;
+  color: #deb432;
+}
+
+.history-card-time {
+  font-size: 0.8em;
+  margin-bottom: -0.8em;
+  color: #deb432;
+}
+
+/* text fields*/
+input[type="text"] {
+  background-color: #2f3038;
+  color: white;
+  border-color: #3e3d48;
+}
+input[type="text"]:focus {
+  background-color: #2f3038;
+  color: white;
+  border-color: #3e3d48;
+  border: solid #deb432 1px;
+  box-shadow: 0.5px 0.5px 5px 0.5px #deb432;
+}
+
+input[type="password"] {
+  background-color: #2f3038;
+  color: white;
+  border-color: #3e3d48;
+}
+input[type="password"]:focus {
+  background-color: #2f3038;
+  color: white;
+  border-color: #3e3d48;
+  border: solid #deb432 1px;
+  box-shadow: 0.5px 0.5px 5px 0.5px #deb432;
+}
+
+.login-container {
+  padding-left: 2%;
+  padding-right: 2%;
+
+  padding-bottom: 10%;
+  margin-top: 50%;
+}
+
+.reg-container {
+  padding-left: 2%;
+  padding-right: 2%;
+
+  padding-bottom: 10%;
+  margin-top: 20%;
+}
+.bg-yellow {
+  background-color: #deb432;
+}
+
+.hr-margin {
+  margin-top: -0.4em;
+}
+
+.btn-login
+{
+  background-color: #deb432;
+  color: #3e3d48;
+  width: 90%;
+}
+
+.btn-login:hover
+{
+  background-color: #e3bf4f;
+  color: #3e3d48;
+
+}
+
+.reg-text
+{
+  color: white;
+  margin-top: 0.5em;
+  margin-bottom: -1em;
+}
+
+.textWhite
+{
+  color: white;
+}
+
+.reg-lable-text
+{
+  font-size: 1em;
+}
+
+@media only screen and (min-width: 600px) {
+  [class*="user-text"] {
+    font-size: 2.6em;
+    margin: 10px;
+  }
+
+  [class*="reg-lable-text"] {
+    font-size: 2.3em;
+    margin-left: 0.5em;
+   
+  }
+
+  [class*="form-control"] {
+    font-size: 2em;
+    margin: 10px;
+  }
+
+  [class*="btn-login"] {
+    font-size: 2em;
+    margin: 10px;
+  }
+
+  [class*="reg-text"] {
+    font-size: 2em;
+  
+  }
+
+  [class*="title-text"] {
+    font-size: 3em;
+    padding-left: 2%;
+    padding-top: 2%;
+    color: #deb432;
+  }
+
+  [class*="score-text"] {
+    font-size: 8em;
+  }
+
+  [class*="scan-btn"] {
+    margin-top: 1em;
+    font-size: 3em;
+    height: 2em;
+    margin-bottom: 1.5em;
+  }
+
+  [class*="more-btn"] {
+    background-color: #deb432;
+
+    width: 7em;
+    font-size: 2em;
+    border-radius: 20px;
+    margin-bottom: -1.5em;
+  }
+  [class*="more-btn"]:hover {
+    background-color: #e3bf4f;
+
+    width: 7em;
+    font-size: 2em;
+    border-radius: 20px;
+    margin-bottom: -1.5em;
+  }
+
+  [class*="history-card-course"] {
+    font-size: 2em;
+    margin-top: 0.5em;
+  }
+
+  [class*="history-card-time"] {
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  [class*="index-text"] {
+    font-size: 0.8em;
+    margin: 5px;
+  }
+}

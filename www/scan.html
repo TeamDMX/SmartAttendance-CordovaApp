@@ -35,6 +35,8 @@
   <script src="./js/common.js"></script>
 
   <script>
+    window.tempData = { studentId: null };
+
     $(document).ready(function () {
       // check if student id is given
       const studentId = getParameterByName("studentId");
@@ -44,6 +46,9 @@
         window.location = "./main.html";
         return;
       }
+
+      // save globally
+      tempData.studentId = studentId;
 
       // start qr scanner
       setTimeout(function () {
@@ -63,32 +68,19 @@
         const qrData = JSON.parse(text);
         QRScanner.hide();
 
-        // make request
-        const options = {
-          type: "POST",
-          contentType: "application/json; charset=utf-8",
-          url: `${API}/attendances`,
-          data: JSON.stringify({
-            "data": {
-              "code": qrData.code,
-              "lectureId": qrData.lectureId,
-              "studentId": studentId
-            }
-          }),
-          dataType: "json"
-        }
 
-        $.ajax(options)
-          .done(function (res) {
-            console.log(res);
-            if (res.status) {
-              window.location = "./main.html";
-            }
-          })
-
-          .fail((jqXHR, textStatus) => {
-            alert("Failed to make the marking request!");
-          });
+        Request.send("/api/attendances", "POST", {
+          "data": {
+            "code": qrData.code,
+            "lectureId": qrData.lectureId,
+            "studentId": tempData.studentId
+          }
+        }).then(res => {
+          console.log(res);
+          if (res.status) {
+            window.location = "./main.html";
+          }
+        })
       }
     }
 

@@ -2,43 +2,113 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="cordova.js"></script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/custom.css" type="text/css" />
+
+  <script src="cordova.js"></script>
+
+  <title></title>
 </head>
 
-<body>
-    <button id="btnQRCode">Scan Bitch!</button>
-    <button id="btnHide">Hide Bitch!</button>
+<body style="background-color: transparent;">
+  <div class="container">
+    <div class="scan-target-container">
+      <img src="./svg/target.svg" class="img-fluid" />
+      <div class="text-center">
+        <button class="btn btn-warning scan-btn" id="btnReload">Reload</button>
+        <button class="btn btn-warning scan-btn" id="btnHide">Hide</button>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        function displayContents(err, text) {
-            if (err) {
-                console.log(err);
-            } else {
-                // The scan completed, display the contents of the QR code:
-                window.alert(text);
-                QRScanner.hide();
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="./js/jquery.js"></script>
+  <script src="./js/popper.js"></script>
+  <script src="./js/bootstrap.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      // check if student id is given
+      const studentId = getParameterByName("studentId");
+
+      if (isNaN(studentId)) {
+        alert("Invalid student!.");
+        window.location = "./main.html";
+        return;
+      }
+
+      // start qr scanner
+      setTimeout(function () {
+        QRScanner.scan(displayContents);
+        // Make the webview transparent so the video preview is visible behind it.
+        QRScanner.show();
+      }, 500);
+    });
+
+    function displayContents(err, text) {
+      // when scan is finished, parse input and make mark request
+      if (err) {
+        console.log(err);
+      } else {
+
+        // The scan completed, parse qr data
+        const qrData = JSON.parse(text);
+        QRScanner.hide();
+
+        // make request
+        const options = {
+          type: "POST",
+          contentType: "application/json; charset=utf-8",
+          url: "http://192.168.1.120:3000/api/attendances",
+          data: JSON.stringify({
+            "data": {
+              "code": qrData.code,
+              "lectureId": qrData.lectureId,
+              "studentId": studentId
             }
+          }),
+          dataType: "json"
         }
 
-        document.getElementById("btnQRCode").addEventListener("click", function () {
-            // `QRScanner.cancelScan()` is called.
-            QRScanner.scan(displayContents);
+        $.ajax(options)
+          .done(function (res) {
+            console.log(res);
+          })
 
-            // Make the webview transparent so the video preview is visible behind it.
-            QRScanner.show();
+          .fail((jqXHR, textStatus) => {
+            alert("Failed to make the marking request!");
+          });
+      }
+    }
 
-            console.log("aa");
-        })
+    $("#btnReload").on("click", function () {
+      QRScanner.destroy();
+      QRScanner.scan(displayContents);
+      QRScanner.show();
+    });
 
-        document.getElementById("btnHide").addEventListener("click", function () {
-            QRScanner.destroy(function (status) {
-                console.log(status);
-            });
-        })
-    </script>
+    $("#btnHide").on("click", function () {
+      QRScanner.destroy();
+      window.location = "./main.html";
+    });
+
+
+    function getParameterByName(name, url = window.location.href) {
+      name = name.replace(/[\[\]]/g, '\\$&');
+      var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+        results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
+    }
+  </script>
 </body>
 
 </html>

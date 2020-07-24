@@ -146,6 +146,11 @@
         Request.send("/api/login", "POST", { data: creds }).then(res => {
           if (res.status) {
             window.location = "./main.html";
+          } else {
+            // when account is reset
+            if (res.type == "inactive") {
+              localStorage.removeItem("creds");
+            }
           }
         });
       }

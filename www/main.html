@@ -111,6 +111,10 @@
 
       // load initial attendnace
       showAttendace();
+
+      $("#btnScanQR").click(function () {
+        window.location = `./scan.html?studentId=${tempData.student.id}`;
+      });
     });
 
 
@@ -119,7 +123,7 @@
       const res = await Request.send(`/api/students/${tempData.student.regNumber}/courses/${courseId}/attendances`, "GET");
 
       $("#lblProgress").text(`${res.data.percentage}%`);
-      
+
       $("#historyList").empty();
 
       // <div class="card history-card">

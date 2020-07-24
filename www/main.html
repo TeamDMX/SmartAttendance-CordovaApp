@@ -1,118 +1,145 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
-   
-    <link rel="stylesheet" href="css/custom.css" type="text/css">
-   
-    
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title></title>
-  </head>
-  <body>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+
+  <link rel="stylesheet" href="css/custom.css" type="text/css">
+
+
+
+  <title></title>
+</head>
+
+<body>
+  <div class="container">
+
+    <div class="active-container">
+      <div class="flex-container">
+        <img src="svg/profile.svg" class="profile-icon">
+        <p class="v-align text-white display-4 user-text">Madhwa Sirisena <br>
+          <span class="index-text">ICT/18/814</span></p>
+      </div>
+    </div>
+
+    <div class="active-container">
+      <p class="display-4 title-text ">Mark Attendance</p>
+      <hr>
+      <div class="text-center">
+        <button id="btnScanQR" class="btn scan-btn">Scan QR</button>
+      </div>
+
+
+    </div>
+
+    <div class="active-container">
+      <p class="display-4 title-text ">Attendance</p>
+      <hr>
       <div class="container">
-        
-        <div class="active-container">
-           <div class="flex-container">
-               <img src="svg/profile.svg" class="profile-icon">
-                   <p class="v-align text-white display-4 user-text">Madhwa Sirisena <br>
-                    <span class="index-text">ICT/18/814</span></p>
-            </div>  
-            </div>
-
-            <div class="active-container">
-              <p class="display-4 title-text ">Mark Attendance</p>
-              <hr>
-              <div class="text-center">
-                <button id="btnScanQR" class="btn scan-btn">Scan QR</button>
-              </div>
-            
-    
-            </div>
-
-        <div class="active-container" >
-          <p class="display-4 title-text ">Attendance</p>
-          <hr > 
-          <div class="container">
-            <div class="form-group" style="margin-bottom: 30px;">
-              <label class="textWhite text-left reg-lable-text">Course: </label>
-              <p class="text-white"> Select a course which you want to check the attendance.</p>
-              <select class="form-control select-bg" id="courseIds" name="courseIds">
-                <option>HR</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-              </select>
-            </div>
-          </div>
-          <div class="score-container">
-            <img src="svg/spinner.svg" class="img-fluid" width=60% >
-              <h5 class="display-4 score-text" ><strong>80%</strong></h5>
-            
-          </div>
-       
-        </div>
-
-        <div class="active-container">
-         
-          <div class="d-flex bd-highlight">
-            <div class="p-2 flex-grow-1 bd-highlight"> <p class="display-4 title-text ">History</p></div>
-            <div class="p-2 bd-highlight"><button class="btn more-btn" >More</button></div>
-          </div>
-          <hr class="hr-margin">
-          <div class="card history-card">
-            <div class="card-body">
-              <h5 class="history-card-course">Web App Development</h5>
-            <p class="history-card-time">8.13 AM</p> 
-            </div>
-          </div>
-
-          <div class="card history-card">
-            <div class="card-body">
-              <h5 class="history-card-course">Web App Development</h5>
-            <p class="history-card-time">8.13 AM</p> 
-            </div>
-          </div>
-
-          <div class="card history-card">
-            <div class="card-body">
-              <h5 class="history-card-course">Web App Development</h5>
-            <p class="history-card-time">8.13 AM</p> 
-            </div>
-          </div>
-
-          
-          <div class="card history-card">
-            <div class="card-body">
-              <h5 class="history-card-course">Web App Development</h5>
-            <p class="history-card-time">8.13 AM</p> 
-            </div>
-          </div>
-
-          
-          <div class="card history-card">
-            <div class="card-body">
-              <h5 class="history-card-course">Web App Development</h5>
-            <p class="history-card-time">8.13 AM</p> 
-            </div>
-          </div>
-          
-
-        </div>   
-           
+        <div class="form-group" style="margin-bottom: 30px;">
+          <label class="textWhite text-left reg-lable-text">Course: </label>
+          <p class="text-white"> Select a course which you want to check the attendance.</p>
+          <select class="form-control select-bg" id="courseId" name="courseId">
+            <option>HR</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+          </select>
         </div>
       </div>
-  
+      <div class="score-container" id="progressBox">
+        <img src="svg/spinner.svg" class="img-fluid" width=60%>
+        <h5 class="display-4 score-text"><strong id="lblProgress">80%</strong></h5>
+      </div>
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.js"></script>
-  </body>
+    </div>
+
+    <div class="active-container" id="historyBox">
+
+      <div class="d-flex bd-highlight">
+        <div class="p-2 flex-grow-1 bd-highlight">
+          <p class="display-4 title-text ">History</p>
+        </div>
+        <!-- <div class="p-2 bd-highlight"><button class="btn more-btn">More</button></div> -->
+      </div>
+      <hr class="hr-margin">
+      <div id="historyList">
+
+      </div>
+    </div>
+
+  </div>
+  </div>
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="./js/jquery.js"></script>
+  <script src="./js/popper.js"></script>
+  <script src="./js/bootstrap.js"></script>
+  <script src="./js/common.js"></script>
+  <script src="./js/moment.js"></script>
+
+
+  <script>
+    tempData = { student: null };
+
+    $(document).ready(async function () {
+      tempData.student = JSON.parse(localStorage.getItem("student"));
+
+      // for dev env
+      if (tempData.student == null) {
+        tempData.student = { id: 1, regNumber: "TE25654" }
+      }
+
+      // load student course dropdown
+      $("#courseId").empty();
+      const res = await Request.send(`/api/students/${tempData.student.id}/courses`);
+
+      res.data.forEach(sc => {
+        console.log(sc);
+        $("#courseId").append(`<option value="${sc.course.id}">${sc.course.name}</option>`);
+      });
+
+      // register event listeners
+      $("#courseId").on("change", showAttendace);
+
+      // load initial attendnace
+      showAttendace();
+    });
+
+
+    async function showAttendace() {
+      const courseId = $("#courseId").val();
+      const res = await Request.send(`/api/students/${tempData.student.regNumber}/courses/${courseId}/attendances`, "GET");
+
+      $("#lblProgress").text(`${res.data.percentage}%`);
+      
+      $("#historyList").empty();
+
+      // <div class="card history-card">
+      //     <div class="card-body">
+      //       <h5 class="history-card-course">Web App Development</h5>
+      //     <p class="history-card-time">8.13 AM</p> 
+      //     </div>
+      //   </div>
+
+      res.data.attendances.forEach(at => {
+        $("#historyList").append(`
+        <div class="card history-card">
+          <div class="card-body">
+            <h5 class="history-card-course">${moment(at.markedDatetime).format("YYYY/MM/DD")} @ ${moment(at.markedDatetime).format("HH:mm")}</h5>
+          </div>
+        </div>
+        `);
+      });
+    }
+  </script>
+</body>
+
 </html>

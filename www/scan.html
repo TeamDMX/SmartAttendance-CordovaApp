@@ -32,6 +32,7 @@
   <script src="./js/jquery.js"></script>
   <script src="./js/popper.js"></script>
   <script src="./js/bootstrap.js"></script>
+  <script src="./js/common.js"></script>
 
   <script>
     $(document).ready(function () {
@@ -80,6 +81,9 @@
         $.ajax(options)
           .done(function (res) {
             console.log(res);
+            if (res.status) {
+              window.location = "./main.html";
+            }
           })
 
           .fail((jqXHR, textStatus) => {

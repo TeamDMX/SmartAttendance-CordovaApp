@@ -47,10 +47,10 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.js"></script>
-    <script src="js/common.js"></script>
+    <script src="./js/jquery.js"></script>
+    <script src="./js/popper.js"></script>
+    <script src="./js/bootstrap.js"></script>
+    <script src="./js/common.js"></script>
 
     <script>
       const validationInfo = {
@@ -135,6 +135,8 @@
               email: data.email,
               password: data.password
             }));
+            
+            localStorage.setItem("student", JSON.stringify(res.data.student));
 
             // load dashboard
             window.location = "./main.html";
@@ -145,6 +147,7 @@
       function logIn(creds) {
         Request.send("/api/login", "POST", { data: creds }).then(res => {
           if (res.status) {
+            localStorage.setItem("student", JSON.stringify(res.data.student));
             window.location = "./main.html";
           } else {
             // when account is reset

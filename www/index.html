@@ -1,49 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <link rel="stylesheet" href="css/custom.css" type="text/css" />
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
 
-    <title></title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="active-container login-container">
-        <p class="display-4 title-text">Login</p>
-        <hr />
+  <link rel="stylesheet" href="css/custom.css" type="text/css">
+  <title></title>
+</head>
 
-        <label class="textWhite text-left reg-lable-text">Username </label>
+<body>
+  <div class="container">
+    <div class="active-container reg-container">
+
+      <p class="display-4 title-text">Register</p>
+      <hr />
+      <form>
         <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            id="username"
-            aria-describedby="emailHelp"
-          />
-          <label class="textWhite text-left reg-lable-text">Password </label>
-          <input
-            type="password"
-            class="form-control"
-            id="password"
-            aria-describedby="emailHelp"
-          />
+          <label class="textWhite text-left reg-lable-text">E-Mail: </label>
+          <input type="text" class="form-control" id="email" />
         </div>
-        <div class="text-center">
-          <button class="btn btn-login">Login</button>
+        <div class="form-group">
+          <label class="textWhite text-left reg-lable-text">Reg. No.:</label>
+          <input type="text" class="form-control" id="regNumber" />
         </div>
-        <p class="reg-text text-center">
-          Don't have an account? <a href="">Register</a> here.
-        </p>
-      </div>
+        <div class="form-group">
+          <label class="textWhite text-left reg-lable-text">Index Number: </label>
+          <input type="text" class="form-control" id="indexNumber" />
+        </div>
+        <div class="form-group">
+          <label class="textWhite text-left reg-lable-text">Password: </label>
+          <input type="password" class="form-control" id="password" />
+        </div>
+        <div class="form-group">
+          <label class="textWhite text-left reg-lable-text">Confirm Password: </label>
+          <input type="password" class="form-control" id="passwordConfirm" />
+        </div>
+        <div class="text-center"><button class="btn btn-login" id="btnRegister">Register</button></div>
+      </form>
+
     </div>
 
     <!-- Optional JavaScript -->
@@ -51,5 +50,108 @@
     <script src="js/jquery.js"></script>
     <script src="js/popper.js"></script>
     <script src="js/bootstrap.js"></script>
-  </body>
+    <script src="js/common.js"></script>
+
+    <script>
+      const validationInfo = {
+        "email": "\\S+@\\S+\\.\\S+",
+        "regNumber": "^[A-Z]{2}[\\d]{5}$",
+        "indexNumber": "^[A-Z]{2,4}\\/[\\d]{2,3}\\/[\\d]{1,4}$",
+        "password": "^[\\w\\s\\d]{5,100}$"
+      }
+
+      $(document).ready(function () {
+        $("form").on("submit", e => e.preventDefault());
+
+        // check if there is already login details saved
+        let creds = localStorage.getItem("creds");
+
+        if (creds) {
+          creds = JSON.parse(creds);
+          logIn(creds);
+          return;
+        }
+
+        // enable realtime validation feedback
+        Object.keys(validationInfo).forEach(key => {
+          const input = $(`#${key}`);
+          const regex = new RegExp(validationInfo[key]);
+
+          input.on("keyup", (e) => {
+            const val = e.target.value;
+            if (regex.test(val)) {
+              input.addClass("is-valid");
+              input.removeClass("is-invalid");
+            } else {
+              input.addClass("is-invalid");
+              input.removeClass("is-valid");
+            }
+            if (val.trim() == "") {
+              input.removeClass("is-invalid is-valid");
+            }
+          });
+        });
+      });
+
+      const validateForm = () => {
+        let data = {};
+        let isValid = true;
+        let error = "";
+
+        Object.keys(validationInfo).forEach(key => {
+          const val = $(`#${key}`).val();
+          const regex = new RegExp(validationInfo[key]);
+          if (!regex.test(val)) {
+            console.log(regex, val);
+            isValid = false;
+            error += `Invalid data provided for ${key}!\n`;
+          }
+          data[key] = val;
+        });
+
+        if (!isValid) {
+          alert(error);
+        }
+
+        return { isValid, data };
+      }
+
+      $("#btnRegister").click(function () {
+        let { isValid, data } = validateForm();
+        console.log(isValid);
+        if (!isValid) return;
+
+        // check if passwords match
+        if (data.password !== $("#passwordConfirm").val()) {
+          alert("Passwords doesn't match!.");
+          return;
+        }
+
+        // try to register
+        Request.send("/api/app/register", "POST", { data: data }).then(res => {
+          if (res.status) {
+            // save logins if reg was successful
+            localStorage.setItem("creds", JSON.stringify({
+              email: data.email,
+              password: data.password
+            }));
+
+            // load dashboard
+            window.location = "./main.html";
+          }
+        });
+      });
+
+      function logIn(creds) {
+        Request.send("/api/login", "POST", { data: creds }).then(res => {
+          if (res.status) {
+            window.location = "./main.html";
+          }
+        });
+      }
+
+    </script>
+
+</body>
+
 </html>

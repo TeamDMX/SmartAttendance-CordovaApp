@@ -7,7 +7,7 @@ class Request {
             const options = {
                 type: method,
                 contentType: "application/json; charset=utf-8",
-                url: `http://192.168.1.120:3000${path}`,
+                url: `https://teamdmx-sa.navinda.xyz${path}`,
                 data: data,
                 dataType: "json"
             }

@@ -22,8 +22,8 @@
     <div class="active-container">
       <div class="flex-container">
         <img src="svg/profile.svg" class="profile-icon">
-        <p class="v-align text-white display-4 user-text">Madhwa Sirisena <br>
-          <span class="index-text">ICT/18/814</span></p>
+        <p class="v-align text-white display-4 user-text"><span id="lblStdFullName">Madhawa Sirisean</span> <br>
+          <span class="index-text" id="lblStdIndex">ICT/18/814</span></p>
       </div>
     </div>
 
@@ -92,10 +92,16 @@
     $(document).ready(async function () {
       tempData.student = JSON.parse(localStorage.getItem("student"));
 
-      // for dev env
-      if (tempData.student == null) {
-        tempData.student = { id: 1, regNumber: "TE25654" }
-      }
+      // // for dev env
+      // if (tempData.student == null) {
+      //   tempData.student = { id: 1, regNumber: "TE25654" }
+      // }
+
+      // load profile
+      const profileRes = await Request.send("/api/profile");
+      const profile = profileRes.data;
+      $("#lblStdFullName").html(profile.student.name);
+      $("#lblStdIndex").html(profile.student.regNumber);
 
       // load student course dropdown
       $("#courseId").empty();

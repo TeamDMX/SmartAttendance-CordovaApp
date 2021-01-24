@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/custom.css" type="text/css">
 
 
+  <script src="cordova.js"></script>
 
   <title></title>
 </head>
@@ -119,7 +120,8 @@
       showAttendace();
 
       $("#btnScanQR").click(function () {
-        window.location = `./scan.html?studentId=${tempData.student.id}`;
+        scanQR();
+        // window.location = `./scan.html?studentId=${tempData.student.id}`;
       });
     });
 
@@ -148,6 +150,48 @@
         </div>
         `);
       });
+    }
+
+    function scanQR() {
+
+    // The scan completed, parse qr data
+      cordova.plugins.barcodeScanner.scan(
+      function (result) {
+        const qrData = JSON.parse(result.text);
+        Request.send("/api/attendances", "POST", {
+          "data": {
+            "code": qrData.code,
+            "lectureId": qrData.lectureId,
+            "studentId": tempData.student.id
+          }
+        }).then(res => {
+          console.log(res);
+          if (res.status) {
+            window.location = "./main.html";
+          }
+        })
+          // alert("We got a barcode\n" +
+          //       "Result: " + result.text + "\n" +
+          //       "Format: " + result.format + "\n" +
+          //       "Cancelled: " + result.cancelled);
+      },
+      function (error) {
+          alert("Scanning failed: " + error);
+      },
+      {
+          preferFrontCamera : false, // iOS and Android
+          showFlipCameraButton : true, // iOS and Android
+          showTorchButton : true, // iOS and Android
+          torchOn: true, // Android, launch with the torch switched on (if available)
+          saveHistory: true, // Android, save scan history (default false)
+          prompt : "Place a barcode inside the scan area", // Android
+          resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+          formats : "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+          orientation : "portrait", // Android only (portrait|landscape), default unset so it rotates with the device
+          disableAnimations : true, // iOS
+          disableSuccessBeep: false // iOS and Android
+      }
+   );
     }
   </script>
 </body>
